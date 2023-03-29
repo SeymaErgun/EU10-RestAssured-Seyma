@@ -55,7 +55,7 @@ public class SpartanGetRequests {
 
         //verify status code is 200
 
-        Assertions.assertEquals(response.statusCode(), 200);
+                Assertions.assertEquals(response.statusCode(), 200);
 
         //verify content type is application/json
         Assertions.assertEquals(response.contentType(), "application/json");
@@ -68,7 +68,43 @@ public class SpartanGetRequests {
 
     }
 
+ /*
+        Given no headers provided
+        When Users sends GET request to /api/hello
+        Then response status code should be 200
+        And Content type header should be “text/plain;charset=UTF-8”
+        And header should contain date
+        And Content-Length should be 17
+        And body should be “Hello from Sparta"
+        */
+ @DisplayName("GET request to /api/hello")
+ @Test
+ public void test3(){
+     //send request and save response inside the response object
+     Response response= RestAssured.when().get(baseurl + "/api/hello");
+      //header olmadığı için given yazmadık
 
 
+     Assertions.assertEquals(200, response.statusCode());
+     //verify status code 200
+
+     //verify content type
+     Assertions.assertEquals("text/plain;charset=UTF-8",response.contentType());
+
+     //verify we have headers named date
+     //we use hasHeaderWithname method to verify header exist or not - it returns boolean
+     Assertions.assertTrue(response.headers().hasHeaderWithName("Date"));
+
+     //how to get and header from response using header key ?
+     System.out.println("response.header(\"Content-Length\") = " + response.header("Content-Length"));
+     System.out.println("response.header(\"Date\") = " + response.header("Date"));
+     //we use response.header(String headerName) method to get any header value
+
+     //verify content length is 17
+     //header method her şeyi stringe dönüştürdüğü için 17 yi de "" içinde yazdık
+     Assertions.assertEquals("17",response.header("Content-Length"));
+
+     Assertions.assertEquals("Hello from Sparta", response.body().asString());
+ }
 
 }
