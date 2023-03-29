@@ -21,7 +21,7 @@ public class SpartanGetRequests {
 
     @Test
     public void test1(){
-        Response response = given().accept(ContentType.JSON)
+        Response response = RestAssured.given().accept(ContentType.JSON)
                 .when()
                 .get(baseurl + "/api/spartans");
         //printing status code from response object

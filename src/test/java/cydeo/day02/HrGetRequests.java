@@ -3,7 +3,6 @@ package cydeo.day02;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ public class HrGetRequests {
     @BeforeAll
     public static void init(){
    //save baseurl inside this variable so that we dont need to type each http method.
-        RestAssured.baseURI="http://54.242.181.245:1000/ords/hr";
+        baseURI="http://54.242.181.245:1000/ords/hr";
 
     }
 
@@ -24,7 +23,7 @@ public class HrGetRequests {
     @Test
     public void test1(){
 
-        Response response = get("/regions");
+        Response response = RestAssured.get("/regions");
 
         //print the status code
         System.out.println(response.statusCode());
@@ -45,7 +44,7 @@ public class HrGetRequests {
         Response response=given().accept(ContentType.JSON).when().get("/regions/2");
 
 
-     assertEquals(200, response.statusCode());
+
         //verify status code
        assertEquals(200,response.statusCode());
 
