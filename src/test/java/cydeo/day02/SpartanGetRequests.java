@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static io.restassured.RestAssured.given;
+
 public class SpartanGetRequests {
 
  //    Given Accept type application/json
@@ -19,7 +21,7 @@ public class SpartanGetRequests {
 
     @Test
     public void test1(){
-        Response response = RestAssured.given().accept(ContentType.JSON)
+        Response response = given().accept(ContentType.JSON)
                 .when()
                 .get(baseurl + "/api/spartans");
         //printing status code from response object
@@ -50,7 +52,7 @@ public class SpartanGetRequests {
     @DisplayName("GET one spartan /api/spartans/3 and verify")
     @Test
     public void test2(){
-        Response response=RestAssured.given().accept(ContentType.JSON).
+        Response response= given().accept(ContentType.JSON).
                 when().get(baseurl+ "/api/spartans/3" );
 
         //verify status code is 200
