@@ -1,4 +1,4 @@
-package cydeo.day1;
+package cydeo.day01;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
