@@ -6,6 +6,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,4 +69,59 @@ public class SpartanTestsWithParameters {
         //verify Not Found in the json payload/body
         assertTrue(response.body().asString().contains("Not Found"));
     }
+
+    /*
+        Given accept type is Json
+        And query parameter values are:
+        gender|Female
+        nameContains|e
+        When user sends GET request to /api/spartans/search
+        Then response status code should be 200
+        And response content-type: application/json
+        And "Female" should be in response payload
+        And "Janette" should be in response payload
+     */
+    @DisplayName("Get request to /api/spartans/search with Query Params")
+    @Test
+    public void test3(){
+        Response response=given().log().all().accept(ContentType.JSON).and().queryParam(" nameContains", "e")
+                .and().queryParam("gender", "Female").when().get("/api/spartans/search");
+
+        //.log().all()  when we add them between given and accept, it is showing all the parts,all the product in console.
+        //it is optional to see your request. not mandatory
+        //also you can add different parts. log().parameters() also to see all details the request parameters
+
+        //verify status code 200
+        assertEquals(200,response.statusCode());
+
+        //verify content type
+        assertEquals("application/json",response.contentType());
+
+        //verify Female and verify Janette in the json payload/body
+        assertTrue(response.body().asString().contains("Female"));
+        assertTrue(response.body().asString().contains("Janette"));
+    }
+
+    @DisplayName("Get request to /api/spartans/search with Query Params (MAP)")
+    @Test
+    public void test4(){
+        //create a map and add query parameters
+        Map<String, Object> queryMap=new HashMap<>();
+        queryMap.put("nameContains", "e");
+        queryMap.put("gender", "Female");
+
+        Response response=given().log().all().accept(ContentType.JSON)
+                .and().queryParams(queryMap).when().get("/api/spartans/search");
+
+        //verify status code 200
+        assertEquals(200,response.statusCode());
+
+        //verify content type
+        assertEquals("application/json",response.contentType());
+
+        //verify Female and verify Janette in the json payload/body
+        assertTrue(response.body().asString().contains("Female"));
+        assertTrue(response.body().asString().contains("Janette"));
+    }
+
 }
