@@ -39,6 +39,41 @@ public class HamcrestMatchersApiTest {
 
     }
 
+    @DisplayName("CBTraining Teacher request with chaining and matchers")
+    @Test
+    public void teacherData(){
+        given()
+                .accept(ContentType.JSON)
+                .and()
+                .pathParam("id",3)
+                .when()
+                .get("https://api.training.cydeo.com/teacher/{id}")
+                .then()
+                .statusCode(200)
+                .and()
+                .contentType("application/json;charset=UTF-8")
+                .and()
+                .header("Date",notNullValue())
+                .and().assertThat()
+                .body("teachers[0].firstName",is("Tet"))
+                .body("teachers[0].lastName",is("DS"))
+                .body("teachers[0].gender",equalTo("Male"));
+    }
+
+    @DisplayName("Get request to teacher/all and chaining")
+    @Test
+    public void teachersTest(){
+        //verify Valter,Mario,Porter inside the all teachers
+        given()
+                .accept(ContentType.JSON)
+                .when()
+                .get("https://api.training.cydeo.com/teacher/all")
+                .then()
+                .statusCode(200)
+                .and()
+                .body("teachers.firstName",hasItems("Valter","Mario","Porter"));
+    }
+
 
 
 
