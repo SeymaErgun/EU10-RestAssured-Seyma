@@ -24,19 +24,16 @@ public class CBTrainingApiWithJsonPath {
     @DisplayName("GET Request to individual student")
     @Test
     public void test1(){
-        //send a get request to student id 2 as a parameter and accept header application/json
+        //send a get request to student id 6 as a parameter and accept header application/json
         //verify status code /content type /Content-Encoding = gzip
         //verify Date header exist
         //verify Date header exists
         //assert that
             /*
-                firstName Vera
-                batch 14
-                section 12
-                emailAddress aaa@gmail.com
-                companyName Cybertek
-                state IL
-                zipCode 60606
+                firstName Mike
+                batch 26
+                companyName Cydeo
+                state Virginia
                 using JsonPath
              */
 
@@ -58,12 +55,16 @@ public class CBTrainingApiWithJsonPath {
         String stateName=jsonPath.getString("students[0].company.address.state");
 
 
-
         System.out.println("name = " + name);
         System.out.println("gender = " + gender);
         System.out.println("batchNo = " + batchNo);
         System.out.println("companyName = " + companyName);
         System.out.println("stateName = " + stateName);
+
+        assertEquals("Mike", name);
+        assertEquals("Male", gender);
+        assertEquals("Cydeo", companyName);
+        assertEquals("Virginia", stateName);
     }
 
 
