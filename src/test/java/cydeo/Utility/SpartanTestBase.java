@@ -18,7 +18,7 @@ public class SpartanTestBase {
         DBUtils.createConnection(dbUrl, dbUsername, dbPassword);
     }
     @AfterAll
-    public void teardown(){
+    public static void teardown(){
         DBUtils.destroy();
     }
 
