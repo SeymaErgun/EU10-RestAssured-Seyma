@@ -1,5 +1,15 @@
 package cydeo.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+
+@JsonIgnoreProperties(value = "id",allowSetters = true)
 /*
 {
     "id": 15,
